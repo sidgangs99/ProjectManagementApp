@@ -38,7 +38,7 @@ export default function SignUp() {
 
       if (user) {
         // Redirect to email confirmation page or home
-        router.push("/auth/confirm-email");
+        void router.push("/auth/confirm-email");
       }
     } catch (error) {
       setError("An unexpected error occurred");

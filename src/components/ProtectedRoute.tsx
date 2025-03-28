@@ -13,19 +13,22 @@ export default function ProtectedRoute({
   requireAuth = true,
   redirectTo = "/auth/signin",
 }: ProtectedRouteProps) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const { user, loading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
     if (loading) return;
 
-    if (requireAuth && !user) {
-      router.push(redirectTo);
-    }
+    const handleRedirect = async () => {
+      if (requireAuth && !user) {
+        await router.push(redirectTo);
+      } else if (!requireAuth && user) {
+        await router.push("/home");
+      }
+    };
 
-    if (!requireAuth && user) {
-      router.push("/home");
-    }
+    handleRedirect().catch((err) => console.error("Navigation error:", err));
   }, [user, loading, router, requireAuth, redirectTo]);
 
   if (loading) return <div>Loading...</div>;

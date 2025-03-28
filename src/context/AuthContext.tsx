@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
 
-    getSession();
+    getSession().catch((error) => console.error("getSession error:", error));
 
     const {
       data: { subscription },
@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setLoading(false);
 
       if (event === "SIGNED_IN") {
-        router.push("/home");
+        await router.push("/home");
       }
     });
 
@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const { error } = await supabase.auth.signOut();
         if (error) throw error;
-        router.push("/auth/signin");
+        await router.push("/auth/signin");
       } catch (error) {
         console.error("Error signing out:", error);
       }
@@ -105,7 +105,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useAuth = () => {
+export const useAuth = (): AuthContextType => {
   const context = useContext(AuthContext);
   if (context === undefined) {
     throw new Error("useAuth must be used within an AuthProvider");

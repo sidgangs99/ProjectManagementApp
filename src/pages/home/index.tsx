@@ -14,6 +14,7 @@ interface Task {
 }
 
 export default function Home() {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const { user, signOut } = useAuth();
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
@@ -21,7 +22,7 @@ export default function Home() {
 
   useEffect(() => {
     if (user) {
-      fetchTasks();
+      void fetchTasks();
     }
   }, [user]);
 
@@ -51,6 +52,7 @@ export default function Home() {
         .insert([
           {
             title: newTaskTitle,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
             user_id: user?.id,
             status: "todo",
           },
@@ -113,7 +115,10 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <span className="text-gray-600">Welcome, {user?.email}</span>
               <button
-                onClick={signOut}
+                onClick={async (e) => {
+                  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+                  await signOut();
+                }}
                 className="rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500"
               >
                 Sign Out

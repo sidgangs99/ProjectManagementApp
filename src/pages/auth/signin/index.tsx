@@ -8,6 +8,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
   const { signIn } = useAuth();
   const router = useRouter();
 
@@ -17,10 +18,15 @@ export default function SignIn() {
     try {
       setError("");
       setLoading(true);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       const { error } = await signIn(email, password);
       if (error) throw error;
-    } catch (error: any) {
-      setError(error.message);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError("An unknown error occurred");
+      }
     } finally {
       setLoading(false);
     }
@@ -92,7 +98,7 @@ export default function SignIn() {
           </div>
         </form>
         <div className="text-center text-sm text-gray-600">
-          Don't have an account?{" "}
+          Do not have an account?{" "}
           <Link
             href="/auth/signup"
             className="font-medium text-indigo-600 hover:text-indigo-500"

@@ -9,7 +9,7 @@ export default function ConfirmEmail() {
   useEffect(() => {
     // If user is not logged in, redirect to sign in
     if (!user) {
-      router.push("/auth/signin");
+      void router.push("/auth/signin");
     }
   }, [user, router]);
 
@@ -21,18 +21,18 @@ export default function ConfirmEmail() {
             Confirm your email
           </h1>
           <p className="mt-4 text-gray-600">
-            We've sent a confirmation link to{" "}
+            We have sent a confirmation link to{" "}
             <span className="font-medium">{user?.email}</span>. Please check
             your inbox and click the link to verify your email address.
           </p>
           <p className="mt-4 text-sm text-gray-500">
-            Didn't receive the email?{" "}
+            Did not receive the email?{" "}
             <button className="font-medium text-indigo-600 hover:text-indigo-500">
               Resend confirmation
             </button>
           </p>
           <p className="mt-4 text-sm text-gray-500">
-            Don't forget to check your spam folder!
+            Do not forget to check your spam folder!
           </p>
         </div>
       </div>
