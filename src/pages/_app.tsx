@@ -5,6 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { type AppType } from "next/app";
 import { Geist } from "next/font/google";
 
+import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import "@/styles/globals.css";
 import { api } from "@/utils/api";
@@ -40,6 +41,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
       <AuthProvider>
         <div className={geist.className}>
           <Component {...pageProps} />
+          <Toaster />
         </div>
       </AuthProvider>
     </SessionProvider>
