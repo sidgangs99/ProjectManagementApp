@@ -14,16 +14,44 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+model Project {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String
+  owner       User     @relation("ProjectOwner", fields: [ownerId], references: [id])
+  members     User[]   @relation("ProjectMembers")
+  tasks       Task[]
 
-    @@index([name])
+  User User[]
+}
+
+model Task {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  status      String    @default("TODO") // TODO, IN_PROGRESS, DONE
+  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  projectId   String
+  project     Project   @relation(fields: [projectId], references: [id])
+  creatorId   String
+  creator     User      @relation("TaskCreator", fields: [creatorId], references: [id])
+  assignees   User[]    @relation("AssignedTasks")
+  tags        Tag[]
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  color     String   @default("#000000")
+  createdAt DateTime @default(now())
+  tasks     Task[]
 }
 
 // Necessary for Next auth
@@ -62,7 +90,13 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
+    posts         Project[]
+
+    ProjectMember Project[] @relation("ProjectMembers")
+    ProjectOwner Project[] @relation("ProjectOwner")
+
+    TaskCreator Task[] @relation("TaskCreator")
+    TaskAssigned Task[] @relation("AssignedTasks")
 }
 
 model VerificationToken {

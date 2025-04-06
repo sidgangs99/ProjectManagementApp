@@ -1,4 +1,5 @@
-import { type Session, type User } from "@supabase/supabase-js";
+import { type Session } from "@supabase/supabase-js";
+import type { User } from "next-auth";
 
 export type AuthUser = User | null;
 export type AuthSession = Session | null;
@@ -6,6 +7,8 @@ export type AuthSession = Session | null;
 export interface AuthContextType {
   user: AuthUser;
   loading: boolean;
+  accessToken: string;
+  setUserName: (name: string) => void;
   signUp: (
     email: string,
     password: string,

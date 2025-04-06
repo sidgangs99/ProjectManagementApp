@@ -14,7 +14,6 @@ export default function ProtectedRoute({
   requireAuth = true,
   redirectTo = "/auth/signin",
 }: ProtectedRouteProps) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   const { user, loading } = useAuth();
   const router = useRouter();
 
@@ -25,7 +24,7 @@ export default function ProtectedRoute({
       if (requireAuth && !user) {
         await router.push(redirectTo);
       } else if (!requireAuth && user) {
-        await router.push("/home");
+        await router.push("/dashboard");
       }
     };
 

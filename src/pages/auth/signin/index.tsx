@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/icon/spinner";
+// import { Spinner } from "@/components/icon/spinner";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,7 +19,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (user?.aud === "authenticated") {
-      void router.push("/home");
+      void router.push("/dashboard");
     }
   }, [user]);
 
@@ -78,8 +78,7 @@ export default function SignIn() {
               />
             </div>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading && <Spinner className="mr-2 h-4 w-4 animate-spin" />}
-              Sign In
+              {loading ? "Loading..." : "Sign In"}
             </Button>
           </form>
           <div className="mt-4 text-center text-sm">
