@@ -78,8 +78,6 @@ export default function Dashboard() {
     }
   };
 
-  console.log({ projects });
-
   return (
     <div className="container mx-auto p-6">
       <div className="mb-8 flex items-center justify-between">
@@ -98,59 +96,6 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-4">
-        <Card className="p-4">
-          <div className="flex items-center space-x-2">
-            <ListTodo className="text-blue-500" />
-            <div>
-              <p className="text-muted-foreground text-sm">Total Tasks</p>
-              <p className="text-2xl font-bold">{totalTasks}</p>
-            </div>
-          </div>
-        </Card>
-        <Card className="p-4">
-          <div className="flex items-center space-x-2">
-            <Clock className="text-yellow-500" />
-            <div>
-              <p className="text-muted-foreground text-sm">In Progress</p>
-              <p className="text-2xl font-bold">{inProgressTasks}</p>
-            </div>
-          </div>
-        </Card>
-        <Card className="p-4">
-          <div className="flex items-center space-x-2">
-            <CheckCircle className="text-green-500" />
-            <div>
-              <p className="text-muted-foreground text-sm">Completed</p>
-              <p className="text-2xl font-bold">{completedTasks}</p>
-            </div>
-          </div>
-        </Card>
-        <Card className="p-4">
-          <div className="flex items-center space-x-2">
-            <Users className="text-purple-500" />
-            <div>
-              <p className="text-muted-foreground text-sm">Team Members</p>
-              <p className="text-2xl font-bold">{totalMembers}</p>
-            </div>
-          </div>
-        </Card>
-      </div> */}
-
-      {/* <div className="mb-4 flex items-center justify-between">
-        <Select value={filter} onValueChange={setFilter}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by status" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Projects</SelectItem>
-            <SelectItem value="active">Active</SelectItem>
-            <SelectItem value="completed">Completed</SelectItem>
-            <SelectItem value="archived">Archived</SelectItem>
-          </SelectContent>
-        </Select>
-      </div> */}
-
       <Tabs defaultValue="grid" className="space-y-4">
         <TabsContent value="grid" className="space-y-4">
           {loading ? (
@@ -163,7 +108,7 @@ export default function Dashboard() {
                     key={project.id}
                     title={project.name}
                     description={project.description}
-                    progress={parseInt(Math.random() * 100)}
+                    progress={45}
                     dueDate={project.createdAt}
                     members={project.members.length}
                     tasks={1}
