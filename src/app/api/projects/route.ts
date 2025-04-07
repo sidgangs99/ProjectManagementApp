@@ -3,11 +3,9 @@ import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { type NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
-    console.log("hell");
     const payload = await verifyToken(request);
-    console.log({ payload });
     if (!payload?.sub) {
       return NextResponse.json(
         { error: "Invalid or expired token" },
@@ -16,7 +14,6 @@ export async function GET(request: Request) {
     }
 
     const userId = payload.sub;
-    console.log({ userId });
     const projects = await prisma.project.findMany({
       where: {
         OR: [{ ownerId: userId }, { members: { some: { id: userId } } }],

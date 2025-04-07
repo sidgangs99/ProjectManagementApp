@@ -18,7 +18,7 @@ export default function SignIn() {
   const router = useRouter();
 
   useEffect(() => {
-    if (user?.aud === "authenticated") {
+    if ((user as any)?.aud === "authenticated") {
       void router.push("/dashboard");
     }
   }, [user]);

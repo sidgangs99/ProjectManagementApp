@@ -8,7 +8,6 @@ import { Geist } from "next/font/google";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/context/AuthContext";
 import "@/styles/globals.css";
-import { api } from "@/utils/api";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -48,4 +47,4 @@ const MyApp: AppType<{ session: Session | null }> = ({
   );
 };
 
-export default api.withTRPC(MyApp);
+export default MyApp;

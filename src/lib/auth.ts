@@ -7,7 +7,7 @@ export const verifyToken = async (request: NextRequest) => {
     const token = authHeader?.split(" ")[1];
 
     const secret = new TextEncoder().encode(process.env.SUPABASE_JWT_SECRET);
-    const { payload } = await jwtVerify(token, secret);
+    const { payload } = await jwtVerify(token ?? "", secret);
     return payload;
   } catch (error) {
     console.error({ error });

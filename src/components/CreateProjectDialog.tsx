@@ -22,7 +22,8 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useAuth } from "@/context/AuthContext";
-import { type User } from "@/types/auth";
+import type { User } from "next-auth";
+
 import axios from "axios";
 import { Check } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -135,9 +136,9 @@ export function CreateProjectDialog({
                   <SelectGroup>
                     <SelectLabel>Available Members</SelectLabel>
                     {teamMembers.map((member) => (
-                      <SelectItem key={member.id} value={member.id}>
+                      <SelectItem key={member.id} value={member.id ?? ""}>
                         <div className="flex items-center gap-2">
-                          {selectedMembers.includes(member.id) && (
+                          {selectedMembers.includes(member.id ?? "") && (
                             <Check className="h-4 w-4" />
                           )}
                           {member.name || member.email}

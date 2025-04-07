@@ -18,6 +18,7 @@ interface Project {
   description: string;
   tasks: any[];
   members: any[];
+  createdAt: string;
 }
 
 export default function Dashboard() {
